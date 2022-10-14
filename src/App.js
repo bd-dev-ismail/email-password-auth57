@@ -1,17 +1,35 @@
 
-import {getAuth} from 'firebase/auth';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import app from './firebase/firebase.init';
+import LoginBootstarp from './components/LoginBootstarp';
+import RegisterReactBootstrap from './components/RegisterReactBootstrap';
+import Main from './layout/Main';
 
-const auth = getAuth(app);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <RegisterReactBootstrap></RegisterReactBootstrap>,
+      },
+      {
+        path: "/register",
+        element: <RegisterReactBootstrap></RegisterReactBootstrap>,
+      },
+      {
+        path: "/login", element: <LoginBootstarp></LoginBootstarp>
+      }
+    ],
+  },
+]);
+
 function App() {
+
   return (
-    <div className="App">
-      <form>
-        <input type="email" name="" id="" placeholder='Enter Your Email'/> <br />
-        <input type="password" name="" id="" placeholder='Enter Your Password'/>
-      </form>
-    
+    <div>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
